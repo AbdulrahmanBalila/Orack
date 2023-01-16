@@ -1,0 +1,34 @@
+<p style="color: green"><%= notice %></p>
+
+<table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th>Images</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id="cars">
+    <% @cars.each do |car| %>
+      <tr>
+        <td><%= car.make %></td>
+        <td><%= car.model %></td>
+        <td><%= car.year %></td>
+        <td>
+          <% car.images.each do |image| %>
+            <%= link_to image_tag(car.image_thumb_list(image)), image %>
+          <% end %>
+        </td>
+        <td><%= link_to "Show", car %></td>
+        <td><%= link_to "Edit", edit_car_path(car) %></td>
+        <td><%= link_to "Delete", car, data: { turbo_method: :delete, turbo_confirm: "U Sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= button_to "New Car", new_car_path, method: :get, class:"btn btn-dark" %>
+

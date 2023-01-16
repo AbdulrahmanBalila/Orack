@@ -1,0 +1,43 @@
+<div id="<%= dom_id car %>">
+  <p>
+    <strong>Make:</strong>
+    <%= car.make %>
+  </p>
+
+  <p>
+    <strong>Model:</strong>
+    <%= car.model %>
+  </p>
+
+  <p>
+    <strong>Year:</strong>
+    <%= car.year %>
+  </p>
+
+  <p>
+    <strong>Latitude:</strong>
+    <%= car.latitude %>
+  </p>
+
+  <p>
+    <strong>Longitude:</strong>
+    <%= car.longitude %>
+  </p>
+
+  <p>
+    <strong>Available from:</strong>
+    <%= car.available_from %>
+  </p>
+
+  <p>
+    <strong>Available until:</strong>
+    <%= car.available_until %>
+  </p>
+
+  <p>
+    <strong>Images:</strong>
+      <% car.images.each do |image| %>
+        <%= link_to image_tag(car.image_thumb(image)), image %>
+      <% end %>
+  </p>
+</div>
