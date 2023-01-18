@@ -2,9 +2,8 @@
 
 <%= render @car %>
 
-<div>
-  <%= link_to "Edit this car", edit_car_path(@car) %> |
-  <%= link_to "Back to cars", cars_path %>
-  <br/>
-  <%= button_to "Delete", car_path(@car), data: { turbo_method: :delete, turbo_confirm: "U Sure?" } %></td>
+<hr/><div>
+  <%= link_to "Edit this car", edit_car_path(@car), class:"btn btn-outline-primary" %> 
+  <%= link_to "Back to cars", cars_path, class:"btn btn-outline-primary"%>
+  <%= button_to "Delete", car_path(@car), data: { turbo_method: :delete, turbo_confirm: "U Sure?" }, class:"btn btn-danger", style: "margin-top: 10px" %></td>
 </div>

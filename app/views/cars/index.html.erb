@@ -1,5 +1,5 @@
 <p style="color: green"><%= notice %></p>
-
+<!--Table head-->
 <table class="table table-hover">
   <thead class="table-dark">
     <tr>
@@ -10,7 +10,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
+<!--Table body-->
   <tbody id="cars">
     <% @cars.each do |car| %>
       <tr>
@@ -18,17 +18,19 @@
         <td><%= car.model %></td>
         <td><%= car.year %></td>
         <td>
+          <!--An image loop that resizes them to take less space,
+          the resize method can be found in "models/car"-->
           <% car.images.each do |image| %>
-            <%= link_to image_tag(car.image_thumb_list(image)), image %>
+            <%= link_to image_tag(car.image_index_list(image)), image %>
           <% end %>
         </td>
-        <td><%= link_to "Show", car %></td>
-        <td><%= link_to "Edit", edit_car_path(car) %></td>
-        <td><%= link_to "Delete", car, data: { turbo_method: :delete, turbo_confirm: "U Sure?" } %></td>
+        <td><%= link_to "Show", car , class:"btn btn-outline-primary btn-sm"%></td>
+        <td><%= link_to "Edit", edit_car_path(car), class:"btn btn-outline-primary btn-sm" %></td>
+        <td><%= link_to "Delete", car, data: { turbo_method: :delete, turbo_confirm: "U Sure?" }, class:"btn btn-outline-danger btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= button_to "New Car", new_car_path, method: :get, class:"btn btn-dark" %>
+<%= button_to "New Car", new_car_path, method: :get, class:"btn btn-primary" %>
 
