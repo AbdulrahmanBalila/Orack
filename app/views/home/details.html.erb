@@ -37,33 +37,68 @@
     <span class="visually-hidden">Next</span>
   </button>
   </div><hr/>
-  <!--Car info-->
-  <div class="row">   
-    <h3 class="col"><%= @car.make %> <%= @car.model %> <%= @car.year %></h3>
-    <h3 class="col text-end">Price: 5$</h3>
-  </div><hr/>
-  <!--Booking section-->
-  <div class="row text-center">
-    <h6 class="col">Available Dates: <%= @car.available_from.to_date %> ⇒ <%= @car.available_until.to_date %></h6>
-  </div>
-  <div>
-    <!--alert message render-->
-    <% flash.each do |type, msg| %>
-      <div class="alert alert-warning">
-        <%= msg %>
-      </div>
-    <% end %>
-    <!--Date-picker fields-->
-    <%= form_with url: "/home/book", method: :post do |book| %>
-      <%= book.label :start_date, "Start Date", class:"fw-bold", style:"display: block"%>
-      <%= book.date_field :start_date %>
-      <%= book.label :end_date, "End Date", class:"fw-bold", style:"display: block" %>
-      <%= book.date_field :end_date %>
-      <%= book.submit "Book Now!", class:"btn btn-primary d-block", style:"margin-top: 10px" %>
-    <% end %>
-  </div>
 
-  
-  <!--Page footer-->
+  <!--Car info-->
+  <div class="container">
+    <div class="row">   
+      <h3 class="col"><%= @car.make %> <%= @car.model %> <%= @car.year %></h3>
+      <!--the price was originally an idea to test out assinging a random number to each car via the model WIP*-->
+      <h3 class="col text-end">Price: 5.99$</h3>
+    </div>
+    <div>
+      <h6 class="col text-center fw-light">Available Dates: <%= @car.available_from.to_date %> ⇒ <%= @car.available_until.to_date %></h6>
+    </div>
+
+    <!--Booking section-->
+    <div class="text-center">
+      <% if notice %>
+        <div class="alert alert-success" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="alert alert-danger">
+          <%= alert %>
+        </div>
+      <% end %>
+      
+      <!--Pop-up button-->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Select trip dates
+      </button>
+    </div>
+    <!--Pop-up body-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Select trip dates</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!--Repeated the available dates inside the pop up, to make sure the user see's it-->
+            <h6 class="col text-center fw-light">Available Dates: <%= @car.available_from.to_date %> ⇒ <%= @car.available_until.to_date %></h6>
+            <!--Date-picker fields for the home#book function-->
+            <%= form_with url: "/home/book", method: :post do |book| %>
+              <%= hidden_field_tag "available_from", @car.available_from.to_date  %>
+              <%= hidden_field_tag "available_until", @car.available_until.to_date %>
+              <!--sectioned this portion off to get the layout right-->
+              <div class="row  row-cols-3">
+                <%= book.label :start_date, "Start Date", class:"fw-bold col text-start" %>
+                <p class="col"></p>
+                <%= book.label :end_date, "End Date", class:"fw-bold col text-end" %>
+                <%= book.date_field :start_date, class:"col-md" %>
+                <p class="col-auto">⇒</p>
+                <%= book.date_field :end_date, class:"col-md offset-md" %>
+              </div><br/>
+              <%= book.submit "Book Now!", class:"btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Page footer/ back button-->
   <hr/><%= link_to 'Back', :back, class:"btn btn-dark" %>
 </div>

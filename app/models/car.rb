@@ -1,4 +1,6 @@
 class Car < ApplicationRecord
+    # setting a connection between models WIP*
+    has_many :bookings, dependent: :destroy
     # required to get sorted by Geocoder
     geocoded_by :address
     # required for photo attachment by Active Storage
@@ -12,10 +14,6 @@ class Car < ApplicationRecord
     validates :available_from, comparison: { less_than: :available_until }
     validates :available_until, comparison: { greater_than: :available_from }
 
-    # for the cars/index page
-    def image_index_list(image)
-        image.variant(resize_to_fill: [50,50]).processed
-    end
     # for the cars/show page
     def image_thumb(image)
         image.variant(resize_to_fill: [200,200]).processed

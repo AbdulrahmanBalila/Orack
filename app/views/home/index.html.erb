@@ -6,15 +6,15 @@
 <div class="container text-center">
  <h4>Check what's near you!</h4>
 </div><hr/>
-<!--Normal loop for going through the cars, sorting is done in "home/controller"-->
+<!--Normal loop for going through the cars, sorting is done in "home#index"-->
 <div class="container-sm text-center">
     <div class="row row-cols-sm-3">
         <% @car.each do |car|%>
             <div class="col text-uppercase fs-5 fw-bold">
                 <%= image_tag car.images[0].variant(resize_to_fill: [200,200]) ,class:"rounded w-auto" %>
                 <div>
-                <%= car.make %> <%= car.model %> <%= car.year %> <br/>
-                <a href="/home/details/<%= car.id %>" class="btn btn-dark btn-sm" >More info</a><br/>
+                    <%= car.make %> <%= car.model %> <%= car.year %> <br/>
+                    <a href="/home/details/<%= car.id %>" class="btn btn-dark btn-sm" >More info</a><br/>
                 </div><br/>
             </div>
         <% end %>
